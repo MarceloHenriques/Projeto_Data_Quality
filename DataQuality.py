@@ -22,5 +22,5 @@ class DataQuality:
     def contagem_unicos(self): # Exibindo a contagem dos valores unicos por coluna
         return self.df.nunique()
     
-    def descricao(self, lista_colunas = self.lista_numericas):
-        df[lista_colunas].describe()
+    # def descricao(self, lista_colunas = self.lista_numericas):
+        #df[lista_colunas].describe()
