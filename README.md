@@ -29,3 +29,9 @@ E, usando do módulo desenvolvido, faça uma análise de um dataset escolhido no
 - Repositório no github;
 - Histórico no github;
 - Entrega no 30/09 -> link do github
+
+# Projeto
+
+## Objetivos
+
+- Trabalho colaborativo: utilizar o GitHub para colaboração e desenvolvimento entre os integrantes do grupo
