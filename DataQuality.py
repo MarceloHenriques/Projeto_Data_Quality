@@ -5,10 +5,15 @@ import matplotlib.pyplot as plt
 class DataQuality:
     def __init__ (self, csv_file):
         self.df = pd.read_csv(f"./{csv_file}")
-        self.lista_numericas = ["S.NO", "Current Rank", "Previous Year Rank", "Year", "earnings ($ million)"] #TODO ALTERAR
-        self.lista_categoricas = ["Name", "Nationality", "Sport"] #TODO ALTERAR
-        #iteração para adicionar nas listas #TODO
-
+        self.lista_numericas = []
+        self.lista_categoricas = []
+        
+        #iteração para adicionar nas listas
+        for coluna in self.df.columns:
+            if pd.api.types.is_numeric_dtype (self.df[coluna]): # PD.API.TYPES
+                self.lista_numericas.append(coluna)# Adicionando na lista se for valor numerico
+            else:
+                self.lista_categoricas.append(coluna) # Adiciona a lista de valores categorico 
 
     # Analisando as colunas informadas
     def descricao_personalizada(self, colunas:list = None):
