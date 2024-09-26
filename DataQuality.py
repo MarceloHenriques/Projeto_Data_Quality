@@ -5,11 +5,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Cores
-color_palette = sns.set_palette("dark")
+color_palette = sns.color_palette("dark")
 plot_style = sns.set_style("darkgrid")
 
 class DataQuality:
     def __init__ (self, csv_file):
+        self.arquivo = csv_file
         self.df = pd.read_csv(f"./{csv_file}")
         self.lista_numericas = list(self.df.select_dtypes(include=np.number).columns)
         self.lista_categoricas = list(self.df.select_dtypes(exclude=np.number).columns)
@@ -38,7 +39,7 @@ class DataQuality:
 
 
     # Analisando as colunas informadas
-    def descricao_personalizada(self, colunas:list = None):
+    def descricao(self, colunas:list = None):
         if colunas == None:
             colunas = self.lista_numericas + self.lista_categoricas
         
@@ -112,7 +113,7 @@ class DataQuality:
         plt.figure(figsize=(20,10))
         for coluna in self.lista_categoricas:
             sns.set_style(plot_style)
-            sns.countplot(y=self.df[coluna], legend=False, color= color_palette)
+            sns.countplot(y=self.df[coluna], legend=False, color = color_palette[0])
             plt.title(f"Distribuição de {coluna}")
             plt.show()
             #TODO vincular tamanho com quantidade de nomes unicos
@@ -123,7 +124,7 @@ class DataQuality:
         plt.figure(figsize=(20,10))
         for coluna in self.lista_numericas:
             sns.set_style(plot_style)
-            sns.histplot(self.df[coluna], kde=True, color = color_palette)
+            sns.histplot(self.df[coluna], kde=True, color = color_palette[0])
             plt.title(f"Distribuição de {coluna}")
             plt.show()
 
@@ -133,7 +134,7 @@ class DataQuality:
         plt.figure(figsize=(5,10))
         count_cores = 0
         for coluna in self.lista_numericas:
-            if count_cores > len(sns.color_palette()):
+            if count_cores > len(color_palette):
                 count_cores = 0
             sns.set_style(plot_style)
             sns.boxplot(self.df[coluna], color = color_palette[count_cores])
@@ -170,20 +171,10 @@ class DataQuality:
             i.set_xticklabels(i.get_xticklabels(), rotation=90)
 
 
-
-    #TODO Pairplot
-    #def grafico_relacao_pares(self):
-            #print("Relaçao de Pares:")
-            #plt.figure(figsize=(10,10))
-            #sns.pairplot()
-
-
-
-    #TODO Relatório
-    def relatorio(self) -> None:
-        f"""
-        Análise do conjunto de dados {csv_file}.
-        Informações do DataSet:
-        {self.informacoes()}
-        """
-
+    def grafico_relacao_pares(self):
+        print("Relaçao de Pares:")
+        plt.figure(figsize=(10,10))
+        sns.set_theme(style=plot_style)
+        sns.set_palette = color_palette
+        sns.pairplot(data=self.df[self.lista_numericas])
+        plt.show()
