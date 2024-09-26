@@ -71,7 +71,7 @@ class DataQuality:
             
             else:       
                 return self.df[lista_num].describe(), self.df[lista_categ].describe()
-    
+        
         return self.df[colunas].describe()
     
     
@@ -79,12 +79,12 @@ class DataQuality:
     def descricao_numerica(self):
         return self.df[self.lista_numericas].describe()
     
-
+    
     # Analisando as colunas categóricas
     def descricao_categorica(self):
         return self.df[self.lista_categoricas].describe()
-
-
+    
+    
     # Contagem de valores das colunas categóricos
     def contagem_categorica(self) -> list:
         lista_dfs = []
@@ -92,8 +92,8 @@ class DataQuality:
             df_aux = pd.DataFrame(self.df[i].value_counts().reset_index())
             df_aux.columns = [i, "Soma"]
             df_aux["%"] = round(100 * df_aux["Soma"] / self.df.shape[0], 2)
-
-            lista_dfs.append(df_aux)
+        
+        lista_dfs.append(df_aux)
         return lista_dfs
     
     
