@@ -5,7 +5,7 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="BRTqTrgbiYK0Ruy9-HGk-61" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;" vertex="1" parent="1">
-          <mxGeometry x="800" y="60" width="700" height="1900" as="geometry" />
+          <mxGeometry x="30" y="30" width="750" height="1900" as="geometry" />
         </mxCell>
         <mxCell id="BRTqTrgbiYK0Ruy9-HGk-38" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;fillColor=#e3c800;strokeColor=#B09500;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="BRTqTrgbiYK0Ruy9-HGk-36" target="BRTqTrgbiYK0Ruy9-HGk-37">
           <mxGeometry relative="1" as="geometry">
@@ -371,7 +371,7 @@
         <mxCell id="BRTqTrgbiYK0Ruy9-HGk-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#e3c800;strokeColor=#B09500;dashed=1;" edge="1" parent="1" source="BRTqTrgbiYK0Ruy9-HGk-57" target="BRTqTrgbiYK0Ruy9-HGk-59">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="BRTqTrgbiYK0Ruy9-HGk-57" value="Relatório" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="1">
+        <mxCell id="BRTqTrgbiYK0Ruy9-HGk-57" value="Relatório&lt;div&gt;self.relatorio()&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#008a00;fontColor=#ffffff;strokeColor=#005700;" vertex="1" parent="1">
           <mxGeometry x="120" y="1880" width="160" height="40" as="geometry" />
         </mxCell>
         <mxCell id="BRTqTrgbiYK0Ruy9-HGk-59" value="Geração de relatório com todas as informações anteriores." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e3c800;fontColor=#000000;strokeColor=#B09500;" vertex="1" parent="1">

@@ -14,30 +14,29 @@ class DataQuality:
         self.df = pd.read_csv(f"./{csv_file}")
         self.lista_numericas = list(self.df.select_dtypes(include=np.number).columns)
         self.lista_categoricas = list(self.df.select_dtypes(exclude=np.number).columns)
-
-
+    
+    
+    # Informações do Dataframe
     def informacoes(self):
-        print("Informações Gerais:")
         self.df.info()
-        print("\n")
-
-
-        # Exibe a contagem dos valores nulos por coluna
+    
+    
+    # Exibe a contagem dos valores nulos por coluna
     def contagem_nulos(self): 
         nulos = pd.DataFrame(self.df.isnull().sum())
         nulos.columns = ["Nulos Soma"]
         nulos["Nulos %"] = round(100 * nulos["Nulos Soma"] / self.df.shape[0], 2)
         return nulos
-
-
+    
+    
     # Exibindo a contagem dos valores unicos por coluna
     def contagem_unicos(self):
         unicos = pd.DataFrame(self.df.nunique())
         unicos.columns = ["Unicos Soma"]
         unicos["Unicos %"] = round(100 * unicos["Unicos Soma"] / self.df.shape[0], 2)
         return unicos
-
-
+    
+    
     # Analisando as colunas informadas
     def descricao(self, colunas:list = None):
         if colunas == None:
@@ -49,10 +48,10 @@ class DataQuality:
             
             else:
                 raise ValueError("O valor informado deve ser o nome de uma das colunas do dataframe, uma lista de valores das colunas, ou não informar argumentos para ver todas as colunas.")
-
+            
         elif not isinstance(colunas, list):
             raise TypeError("O valor informado deve ser o nome de uma das colunas do dataframe, uma lista de valores das colunas, ou não informar argumentos para ver todas as colunas.")
-
+        
         else:
             lista_num = []
             lista_categ = []
@@ -66,7 +65,7 @@ class DataQuality:
             
             if len(lista_num) == 0:
                 return self.df[lista_categ].describe()
-
+            
             elif len(lista_categ) == 0:
                 return self.df[lista_num].describe()
             
@@ -75,7 +74,7 @@ class DataQuality:
     
         return self.df[colunas].describe()
     
-
+    
     # Analisando as colunas numéricas
     def descricao_numerica(self):
         return self.df[self.lista_numericas].describe()
@@ -86,7 +85,7 @@ class DataQuality:
         return self.df[self.lista_categoricas].describe()
 
 
-    # Contagem de valores categóricos
+    # Contagem de valores das colunas categóricos
     def contagem_categorica(self) -> list:
         lista_dfs = []
         for i in self.lista_categoricas:
@@ -96,8 +95,9 @@ class DataQuality:
 
             lista_dfs.append(df_aux)
         return lista_dfs
-
-
+    
+    
+    # Contagem de valores das colunas numéricas
     def contagem_numerica(self):
         lista_dfs = []
         for i in self.lista_numericas:
@@ -106,10 +106,10 @@ class DataQuality:
             df_aux["%"] = round(100 * df_aux["Soma"] / self.df.shape[0], 2)
             lista_dfs.append(df_aux)
         return lista_dfs
-
-
+    
+    
+    # Gráfico de distribuição das variáveis categóricas
     def grafico_dist_categ(self):
-        print("Distribuição das Colunas Categóricas:")
         plt.figure(figsize=(20,10))
         for coluna in self.lista_categoricas:
             sns.set_style(plot_style)
@@ -117,18 +117,19 @@ class DataQuality:
             plt.title(f"Distribuição de {coluna}")
             plt.show()
             #TODO vincular tamanho com quantidade de nomes unicos
-
-
+    
+    
+    # Gráfico de distribuição das variáveis numéricas
     def grafico_dist_num(self):
-        print("Distribuição das Colunas Numéricas:")
         plt.figure(figsize=(20,10))
         for coluna in self.lista_numericas:
             sns.set_style(plot_style)
             sns.histplot(self.df[coluna], kde=True, color = color_palette[0])
             plt.title(f"Distribuição de {coluna}")
             plt.show()
-
-
+    
+    
+    # Diagrama de caixa das variáveis numéricas
     def grafico_diagrama_caixa(self):
         print("Boxplot das Colunas Numéricas:")
         plt.figure(figsize=(5,10))
@@ -141,14 +142,15 @@ class DataQuality:
             plt.title(f"Boxplot de {coluna}")
             plt.show()
             count_cores += 1
-
-
+    
+    
+    # Matriz de correlação das variáveis numéricas
     def matriz_correlacao(self):
         matriz_corr = self.df[self.lista_numericas].corr()
         matriz_corr_HM = matriz_corr.stack().reset_index()
         matriz_corr_HM.columns = ["feature_x", "feature_y", "Correlação"]
         matriz_corr_HM["Correlação Absoluta"] = abs(matriz_corr_HM["Correlação"])
-
+        
         print("Matriz de Correlação:")
         plt.figure(figsize=(10,10))
         sns.set_theme(style=plot_style)
@@ -163,14 +165,15 @@ class DataQuality:
                             height=5, 
                             aspect=2, 
                             sizes=(0,500))
-
+        
         heatm.set(xlabel="", ylabel="", )
         heatm.despine(left=True, bottom=True)
         for i in heatm.axes.flat:
             i.set_xticks(i.get_xticks())
             i.set_xticklabels(i.get_xticklabels(), rotation=90)
-
-
+    
+    
+    # Relação de pares das variáveis numéricas
     def grafico_relacao_pares(self):
         print("Relaçao de Pares:")
         plt.figure(figsize=(10,10))
@@ -178,3 +181,45 @@ class DataQuality:
         sns.set_palette = color_palette
         sns.pairplot(data=self.df[self.lista_numericas])
         plt.show()
+    
+    
+    #TODO Relatório
+    def relatorio(self) -> None:
+        print (f"ANÁLISE DO CONJUNTO DE DADOS DO DATAFRAME {self.arquivo}.\n")
+        print ("Informções Gerais:")
+        self.informacoes()
+        print ("\n")
+        
+        print (f"REALIZANDO A CONTAGEM DOS VALORES NULOS.\n")
+        display (self.contagem_nulos())
+        print ("\n")       
+        
+        print (f"REALIZANDO A CONTAGEM DOS VALORES ÚNICOS.\n")
+        display (self.contagem_unicos())
+        print ("\n") 
+        
+        print (f"INFORMAÇÕES DAS COLUNAS NUMÉRICAS.")
+        display (self.descricao_numerica())
+        print ("\n")
+        
+        print ("CONTAGEM DOS VALORES NUMÉRICOS:")
+        lista_dfs_num = self.contagem_numerica()
+        for df in lista_dfs_num:
+            display (df)
+        print ("\n")
+        
+        print ("INFORMAÇÕES GRÁFICAS DOS VALORES NUMÉRICOS:")
+        display (self.grafico_dist_num())
+        print ("\n") 
+        
+        print (f"INFORMAÇÕES DAS COLUNAS CATEGÓRICAS.")
+        display (self.descricao_categorica())
+        print ("\n")
+        
+        print ("CONTAGEM DOS VALORES CATEGÓRICOS:")
+        display (self.contagem_categorica())
+        print ("\n")
+        
+        print ("INFORMAÇÕES GRÁFICAS:")
+        display(self.grafico_dist_categ())
+        print ("\n") 
