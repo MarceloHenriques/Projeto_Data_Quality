@@ -10,15 +10,15 @@ plot_style = sns.set_style("darkgrid")
 
 class DataQuality:
     def __init__ (self, csv_file):
+        self.arquivo = csv_file
         self.df = pd.read_csv(f"./{csv_file}")
         self.lista_numericas = list(self.df.select_dtypes(include=np.number).columns)
         self.lista_categoricas = list(self.df.select_dtypes(exclude=np.number).columns)
 
 
     def informacoes(self):
-        print("Informações Gerais:")
         self.df.info()
-        print("\n")
+        
 
 
         # Exibe a contagem dos valores nulos por coluna
@@ -108,7 +108,6 @@ class DataQuality:
 
 
     def grafico_dist_categ(self):
-        print("Distribuição das Colunas Categóricas:")
         plt.figure(figsize=(20,10))
         for coluna in self.lista_categoricas:
             sns.set_style(plot_style)
@@ -119,7 +118,6 @@ class DataQuality:
 
 
     def grafico_dist_num(self):
-        print("Distribuição das Colunas Numéricas:")
         plt.figure(figsize=(20,10))
         for coluna in self.lista_numericas:
             sns.set_style(plot_style)
@@ -181,9 +179,40 @@ class DataQuality:
 
     #TODO Relatório
     def relatorio(self) -> None:
-        f"""
-        Análise do conjunto de dados {csv_file}.
-        Informações do DataSet:
-        {self.informacoes()}
-        """
+        print (f"ANÁLISE DO CONJUNTO DE DADOS DO DATAFRAME {self.arquivo}.\n")
+        print ("Informções Gerais:")
+        self.informacoes()
+        print ("\n")
+        
 
+        print (f"REALIZANDO A CONTAGEM DOS VALORES NULOS.\n")
+        display (self.contagem_nulos())
+        print ("\n")       
+        
+        print (f"REALIZANDO A CONTAGEM DOS VALORES ÚNICOS.\n")
+        display (self.contagem_unicos())
+        print ("\n") 
+        
+        print (f"INFORMAÇÕES DAS COLUNAS NUMERICAS.")
+        display (self.descricao_numerica())
+        print ("\n")    
+        print ("CONTAGEM DOS VALORES NUMERICOS:")
+        display (self.contagem_numerica())
+        print ("\n")  
+        print ("INFORMAÇÕES GRÁFICAS:")
+        display (self.grafico_dist_num())
+        print ("\n") 
+        
+        print (f"INFORMAÇÕES DAS COLUNAS CATEGORICAS.")
+        display (self.descricao_categorica())
+        print ("\n") 
+        print ("CONTAGEM DOS VALORES CATEGORICOS:")
+        display (self.contagem_categorica())
+        print ("\n")
+        print ("INFORMAÇÕES GRÁFICAS:")
+        display(self.grafico_dist_categ())
+        print ("\n") 
+        
+        
+        
+        
