@@ -4,9 +4,10 @@
 ![pyenv](https://img.shields.io/badge/pyenv-white?style=for-the-badge)
 ![poetry](https://img.shields.io/badge/poetry-d0d4fc?style=for-the-badge)
 ![ipykernel](https://img.shields.io/badge/ipykernel-3670A0?style=for-the-badge)
-![os](https://img.shields.io/badge/os-616161?style=for-the-badge)
+![matplotlib](https://img.shields.io/badge/matplotlib-222832?style=for-the-badge)
+![numpy](https://img.shields.io/badge/numpy-013243?style=for-the-badge)
 ![pandas](https://img.shields.io/badge/pandas-130654?style=for-the-badge)
-
+![seaborn](https://img.shields.io/badge/seaborn-white?style=for-the-badge)
 ---
 
 # Enunciado
@@ -34,4 +35,5 @@ E, usando do módulo desenvolvido, faça uma análise de um dataset escolhido no
 
 ## Objetivos
 
+- Criar um módulo de DataQuality, com as principais funções do Pandas para visualização inicial dos dados
 - Trabalho colaborativo: utilizar o GitHub para colaboração e desenvolvimento entre os integrantes do grupo
