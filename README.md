@@ -37,6 +37,9 @@ E, usando do módulo desenvolvido, faça uma análise de um dataset escolhido no
 
 O projeto DataQuality é um módulo em Python desenvolvido para realizar análises de qualidade de dados em DataFrames, inspirado em ferramentas como pandas-profiling, YData-profiling e SweetViz. Este módulo tem como objetivo facilitar a análise exploratória de dados, exibindo informações importantes sobre os dados como contagem de valores nulos, contagem de valores únicos, análises descritivas de colunas numéricas e categóricas, gráficos de distribuição e diagramas de correlação.
 
+O desenvolvimento do projeto foi iniciado com um fluxo das necessidades do projeto e descrição dos itens que devem ser desenvolvidos.
+![Fluxograma](assets/Projeto_DataViz.png)
+
 ## Funcionalidades
 
 - Informações do DataFrame: Exibe informações gerais do DataFrame, como tipos de dados e contagem de valores não nulos.
@@ -49,6 +52,10 @@ O projeto DataQuality é um módulo em Python desenvolvido para realizar anális
 - Matriz de Correlação: Apresenta uma matriz de correlação para as variáveis numéricas, permitindo a visualização das relações entre as variáveis.
 - Relação de Pares (Pairplot): Cria gráficos de dispersão para examinar a relação entre todas as combinações de variáveis numéricas.
 
+### Particularidades
+
+- A função <code>grafico_dist_categ()</code> retorna a distribuição das variáveis categóricas. Para datasets com colunas com um grande número de valores únicos nas variáveis categóricas, a visualização gráfica pode ser impossibilidatada, seja pelo amontoado de informações em um único gráfico, seja pelo gráfico precisar ser exageradamente grande para comportar todos os números. Foi estipulado um número padrão dos 20 mais relevantes a serem exibidos. Caso seja necessário alterar, deve-se utilizar o setter <code>valores_categoricos</code>
+
 ## Bibliotecas Utilizadas
 
 O projeto utiliza as seguintes bibliotecas:
@@ -58,6 +65,6 @@ O projeto utiliza as seguintes bibliotecas:
 - matplotlib: Visualização de dados.
 - seaborn: Visualização de dados com gráficos estatísticos.
 
-Este projeto foi desenvolvido pelos alunos Nicolas Sartor Parisotto e Marcelo Neiva Henriques como parte do Módulo 3 do curso de Engenharia de Dados, ministrado pela ADA Tech em parceria com a Santander Academy. O objetivo do projeto é aplicar e consolidar os conhecimentos adquiridos durante o curso, focando na análise de qualidade de dados utilizando Python e suas principais bibliotecas.
+Este projeto foi desenvolvido pelos alunos Nícolas Sartor Parisotto e Marcelo Neiva Henriques como parte do Módulo 3 do curso de Engenharia de Dados, ministrado pela ADA Tech em parceria com a Santander Academy. O objetivo do projeto é aplicar e consolidar os conhecimentos adquiridos durante o curso, focando na análise de qualidade de dados utilizando Python e suas principais bibliotecas.
 
 Contribuições são bem-vindas! Sinta-se à vontade para enviar um pull request ou abrir uma issue para discutir melhorias e novas funcionalidades.

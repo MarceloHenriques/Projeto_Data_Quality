@@ -14,6 +14,7 @@ class DataQuality:
         self.df = pd.read_csv(f"./{csv_file}")
         self.lista_numericas = list(self.df.select_dtypes(include=np.number).columns)
         self.lista_categoricas = list(self.df.select_dtypes(exclude=np.number).columns)
+        self.__valores_categoricos = 20
     
     
     # Informações do Dataframe
@@ -109,37 +110,56 @@ class DataQuality:
     
     
     # Gráfico de distribuição das variáveis categóricas
-    def grafico_dist_categ(self):
-        plt.figure(figsize=(20,10))
+    def grafico_dist_categ(self,):
         for coluna in self.lista_categoricas:
+            num_valores = self.__valores_categoricos
+            tamanho = self.df[coluna].nunique()
+            
+            if tamanho < num_valores:
+                num_valores = tamanho
+
+            elif tamanho > num_valores:
+                print(f"A quantidade de valores únicos da coluna: {coluna} é muito grande.")
+                print(f"Serão exibidos os {num_valores} valores mais relevantes.")
+            
+            fig_dinamic =  num_valores/5
+            
+            if fig_dinamic < 5:
+                fig_dinamic = 5
+            
+            plt.figure(figsize=(10,fig_dinamic))
             sns.set_style(plot_style)
-            sns.countplot(y=self.df[coluna], legend=False, color = color_palette[0])
+            sns.countplot(y=self.df[coluna], 
+                          legend=False, 
+                          color = color_palette[0], 
+                          order=(pd.Series(self.df[coluna].value_counts(ascending=False).reset_index()[0:num_valores][coluna])))
             plt.title(f"Distribuição de {coluna}")
+            plt.tight_layout()
             plt.show()
-            #TODO vincular tamanho com quantidade de nomes unicos
     
     
     # Gráfico de distribuição das variáveis numéricas
     def grafico_dist_num(self):
-        plt.figure(figsize=(20,10))
         for coluna in self.lista_numericas:
+            plt.figure(figsize=(5, 5))
             sns.set_style(plot_style)
             sns.histplot(self.df[coluna], kde=True, color = color_palette[0])
             plt.title(f"Distribuição de {coluna}")
+            plt.tight_layout()
             plt.show()
     
     
     # Diagrama de caixa das variáveis numéricas
     def grafico_diagrama_caixa(self):
-        print("Boxplot das Colunas Numéricas:")
-        plt.figure(figsize=(5,10))
         count_cores = 0
         for coluna in self.lista_numericas:
             if count_cores > len(color_palette):
                 count_cores = 0
+            plt.figure(figsize=(2.5,5))
             sns.set_style(plot_style)
             sns.boxplot(self.df[coluna], color = color_palette[count_cores])
             plt.title(f"Boxplot de {coluna}")
+            plt.tight_layout()
             plt.show()
             count_cores += 1
     
@@ -151,7 +171,6 @@ class DataQuality:
         matriz_corr_HM.columns = ["feature_x", "feature_y", "Correlação"]
         matriz_corr_HM["Correlação Absoluta"] = abs(matriz_corr_HM["Correlação"])
         
-        print("Matriz de Correlação:")
         plt.figure(figsize=(10,10))
         sns.set_theme(style=plot_style)
         heatm = sns.relplot(data=matriz_corr_HM, 
@@ -175,7 +194,6 @@ class DataQuality:
     
     # Relação de pares das variáveis numéricas
     def grafico_relacao_pares(self):
-        print("Relaçao de Pares:")
         plt.figure(figsize=(10,10))
         sns.set_theme(style=plot_style)
         sns.set_palette = color_palette
@@ -183,43 +201,78 @@ class DataQuality:
         plt.show()
     
     
-    #TODO Relatório
+    # Relatório do Dataset
     def relatorio(self) -> None:
-        print (f"ANÁLISE DO CONJUNTO DE DADOS DO DATAFRAME {self.arquivo}.\n")
-        print ("Informções Gerais:")
-        self.informacoes()
-        print ("\n")
         
-        print (f"REALIZANDO A CONTAGEM DOS VALORES NULOS.\n")
-        display (self.contagem_nulos())
+        print(f"ANÁLISE DO CONJUNTO DE DADOS DO DATAFRAME {self.arquivo}.\n")
+        print("Informções Gerais:")
+        self.informacoes()
+        print("\n")
+        
+        print(f"REALIZANDO A CONTAGEM DOS VALORES NULOS.\n")
+        display(self.contagem_nulos())
         print ("\n")       
         
-        print (f"REALIZANDO A CONTAGEM DOS VALORES ÚNICOS.\n")
-        display (self.contagem_unicos())
-        print ("\n") 
+        print(f"REALIZANDO A CONTAGEM DOS VALORES ÚNICOS.\n")
+        display(self.contagem_unicos())
+        print("\n") 
         
-        print (f"INFORMAÇÕES DAS COLUNAS NUMÉRICAS.")
-        display (self.descricao_numerica())
-        print ("\n")
+        if len(self.lista_numericas) >= 1:
+            print(f"INFORMAÇÕES DAS COLUNAS NUMÉRICAS.")
+            display(self.descricao_numerica())
+            print("\n")
         
-        print ("CONTAGEM DOS VALORES NUMÉRICOS:")
-        lista_dfs_num = self.contagem_numerica()
-        for df in lista_dfs_num:
-            display (df)
-        print ("\n")
+            print("CONTAGEM DOS VALORES NUMÉRICOS:")
+            lista_dfs_num = self.contagem_numerica()
+            for df in lista_dfs_num:
+                display(df)
+            print("\n")
         
-        print ("INFORMAÇÕES GRÁFICAS DOS VALORES NUMÉRICOS:")
-        display (self.grafico_dist_num())
-        print ("\n") 
+            print("DISTRIBUIÇÃO DOS VALORES NUMÉRICOS:")
+            self.grafico_dist_num()
+            print("\n") 
+
+            print("DIAGRAMA DE CAIXA DOS VALORES NUMÉRICOS:")
+            self.grafico_diagrama_caixa()
+            print("\n")
+
+            print("RELAÇÃO DE PARES DOS VALORES NUMÉRICOS")
+            self.grafico_relacao_pares()
+            print("\n")
+
+
+            print("MATRIZ DE CORRELAÇÃO:")
+            if len(self.lista_numericas) >= 2:
+                self.matriz_correlacao()
+            else:
+                print("Não foi possível fazer uma matriz de correlação.")
+            print("\n")
+
+        else:
+            print("DATASET SEM COLUNAS NUMÉRICAS.")
+
+        if len(self.lista_categoricas) >= 1:
+            print(f"INFORMAÇÕES DAS COLUNAS CATEGÓRICAS.")
+            display(self.descricao_categorica())
+            print ("\n")
         
-        print (f"INFORMAÇÕES DAS COLUNAS CATEGÓRICAS.")
-        display (self.descricao_categorica())
-        print ("\n")
+            print("CONTAGEM DOS VALORES CATEGÓRICOS:")
+            lista_dfs_categ = self.contagem_categorica()
+            for df in lista_dfs_categ:
+                display(df)
+            print("\n")
         
-        print ("CONTAGEM DOS VALORES CATEGÓRICOS:")
-        display (self.contagem_categorica())
-        print ("\n")
+            print("DISTRIBUIÇÃO DOS VALORES CATEGÓRICOS:")
+            self.grafico_dist_categ()
+            print("\n") 
         
-        print ("INFORMAÇÕES GRÁFICAS:")
-        display(self.grafico_dist_categ())
-        print ("\n") 
+        else:
+            print("DATASET SEM COLUNAS CATEGÓRICAS.")
+
+    @property
+    def valores_categoricos(self):
+        return self.__valores_categoricos
+    
+    @valores_categoricos.setter
+    def valores_categoricos(self, novo_valor):
+        self.__valores_categoricos = novo_valor
