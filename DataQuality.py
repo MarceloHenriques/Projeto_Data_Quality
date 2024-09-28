@@ -160,8 +160,17 @@ class DataQuality:
         
         print(f"ANÁLISE DO CONJUNTO DE DADOS DO DATAFRAME {self.arquivo}.\n")
         print("INFORMAÇÕES GERAIS:\n")
+        
         print(f"Tamanho do Dataset:\n{self.df.shape[0]} linhas;\n{self.df.shape[1]} colunas;\n")
         display(self.informacoes())
+        print("\n")
+        
+        print(f"Exibindo as {self.__valores_categoricos} primeiras linhas:\n")
+        self.df.head(self.__valores_categoricos)
+        print("\n")
+        
+        print(f"Exibindo as {self.__valores_categoricos} últimas linhas:\n")
+        self.df.tail(self.__valores_categoricos)
         print("\n")
         
         print("Colunas duplicadas no Dataset:\n")
@@ -179,13 +188,16 @@ class DataQuality:
         
         if len(self.lista_numericas) >= 1:
             print(f"INFORMAÇÕES DAS COLUNAS NUMÉRICAS.\n")
+
             print(f"O Dataset possui as seguintes colunas numéricas: {self.lista_numericas}.\n")
             print("\n")
+
             print(f"Estatística descritiva das colunas numéricas:\n")
             display(self.descricao_numerica())
             print("\n")
             
             print("DISTRIBUIÇÃO DOS VALORES NUMÉRICOS:\n")
+
             lista_dfs_num = self.contagem_numerica()
             for df in lista_dfs_num:
                 print(f"Análise da coluna '{df.columns[0]}'\n")
@@ -201,10 +213,12 @@ class DataQuality:
                     print("\n")
             
             print("RELAÇÃO DE PARES DOS VALORES NUMÉRICOS:\n")
+
             self.grafico_relacao_pares()
             print("\n")
             
             print("MATRIZ DE CORRELAÇÃO:\n")
+
             if len(self.lista_numericas) >= 2:
                 self.matriz_correlacao()
             else:
@@ -216,13 +230,16 @@ class DataQuality:
 
         if len(self.lista_categoricas) >= 1:
             print(f"INFORMAÇÕES DAS COLUNAS CATEGÓRICAS.\n")
+
             print(f"O Dataset possui as seguintes colunas categóricas: {self.lista_categoricas}.\n")
             print("\n")
+            
             print(f"Maiores frequências das colunas categóricas:\n")
             display(self.descricao_categorica())
             print ("\n")
         
             print("DISTRIBUIÇÃO DOS VALORES CATEGÓRICOS:\n")
+
             lista_dfs_categ = self.contagem_categorica()
             for df in lista_dfs_categ:
                 print(f"Análise da coluna '{df.columns[0]}'\n")

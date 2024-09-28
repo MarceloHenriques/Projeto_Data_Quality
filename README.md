@@ -42,10 +42,8 @@ O desenvolvimento do projeto foi iniciado com um fluxo das necessidades do proje
 
 ## Funcionalidades
 
-- Informações do DataFrame: Exibe informações gerais do DataFrame, como tipos de dados e contagem de valores não nulos.
-
-- Contagem de Nulos: Mostra a contagem e o percentual de valores nulos em cada coluna.
-- Contagem de Valores Únicos: Exibe a contagem e o percentual de valores únicos para cada coluna.
+- Informações do DataFrame: Exibe informações gerais do DataFrame, como tipos de dados e contagem de valores nulos e únicos.
+- Verificação de linhas duplicadas.
 - Análise Descritiva: Realiza a análise descritiva das colunas numéricas e categóricas, exibindo estatísticas como média, mediana, desvio padrão, entre outras.
 - Gráficos de Distribuição: Gera gráficos de distribuição para as variáveis categóricas (gráficos de barras) e numéricas (histogramas com curva de densidade).
 - Diagrama de Caixa (Boxplot): Exibe boxplots para visualizar a dispersão dos dados numéricos e identificar possíveis outliers.
@@ -54,7 +52,8 @@ O desenvolvimento do projeto foi iniciado com um fluxo das necessidades do proje
 
 ### Particularidades
 
-- A função <code>grafico_dist_categ()</code> retorna a distribuição das variáveis categóricas. Para datasets com colunas com um grande número de valores únicos nas variáveis categóricas, a visualização gráfica pode ser impossibilidatada, seja pelo amontoado de informações em um único gráfico, seja pelo gráfico precisar ser exageradamente grande para comportar todos os números. Foi estipulado um número padrão dos 20 mais relevantes a serem exibidos. Caso seja necessário alterar, deve-se utilizar o setter <code>valores_categoricos</code>
+- O setter <code>valores_categoricos</code> altera a quantidade máxima de valores categóricos exbidos nos gráficos.
+- O setter <code>valores_head_tail</code> altera a quantidade de linhas exibidas nos comandos de visualização das primeiras e últimas linhas do dataframe.
 
 ## Bibliotecas Utilizadas
 
