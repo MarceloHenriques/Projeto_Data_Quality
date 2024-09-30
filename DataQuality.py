@@ -165,12 +165,12 @@ class DataQuality:
         display(self.informacoes())
         print("\n")
         
-        print(f"Exibindo as {self.__valores_categoricos} primeiras linhas:\n")
-        self.df.head(self.__valores_categoricos)
+        print(f"Exibindo as {self.__head_tail} primeiras linhas:\n")
+        display(self.df.head(self.__head_tail))
         print("\n")
         
-        print(f"Exibindo as {self.__valores_categoricos} últimas linhas:\n")
-        self.df.tail(self.__valores_categoricos)
+        print(f"Exibindo as {self.__head_tail} últimas linhas:\n")
+        display(self.df.tail(self.__head_tail))
         print("\n")
         
         print("Colunas duplicadas no Dataset:\n")
