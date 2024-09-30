@@ -15,89 +15,33 @@ class DataQuality:
         self.lista_numericas = list(self.df.select_dtypes(include=np.number).columns)
         self.lista_categoricas = list(self.df.select_dtypes(exclude=np.number).columns)
         self.__valores_categoricos = 20
+        self.__head_tail = 5
     
     
     # Informações do Dataframe
     def informacoes(self):
-        self.df.info()
-    
-    
-    # Exibe a contagem dos valores nulos por coluna
-    def contagem_nulos(self): 
-        nulos = pd.DataFrame(self.df.isnull().sum())
-        nulos.columns = ["Nulos Soma"]
-        nulos["Nulos %"] = round(100 * nulos["Nulos Soma"] / self.df.shape[0], 2)
-        return nulos
-    
-    
-    # Exibindo a contagem dos valores unicos por coluna
-    def contagem_unicos(self):
-        unicos = pd.DataFrame(self.df.nunique())
-        unicos.columns = ["Unicos Soma"]
-        unicos["Unicos %"] = round(100 * unicos["Unicos Soma"] / self.df.shape[0], 2)
-        return unicos
-    
-    
-    # Analisando as colunas informadas
-    def descricao(self, colunas:list = None):
-        if colunas == None:
-            colunas = self.lista_numericas + self.lista_categoricas
+        info = pd.DataFrame(data=self.df.dtypes).reset_index()
+        info.columns = ["Colunas", "Tipo de Dados"]
+        info["Nulos Soma"] = info["Colunas"].map(self.df.isnull().sum())
+        info["Nulos %"] = round(100 * info["Nulos Soma"] / self.df.shape[0], 2)
         
-        if isinstance(colunas, (int, float, str)):
-            if (colunas in self.lista_numericas) or (colunas in self.lista_categoricas):
-                colunas = [colunas]
-            
-            else:
-                raise ValueError("O valor informado deve ser o nome de uma das colunas do dataframe, uma lista de valores das colunas, ou não informar argumentos para ver todas as colunas.")
-            
-        elif not isinstance(colunas, list):
-            raise TypeError("O valor informado deve ser o nome de uma das colunas do dataframe, uma lista de valores das colunas, ou não informar argumentos para ver todas as colunas.")
-        
-        else:
-            lista_num = []
-            lista_categ = []
-            
-            for i in colunas:
-                if i in self.lista_numericas:
-                    lista_num.append(i)
-                
-                else:
-                    lista_categ.append(i)
-            
-            if len(lista_num) == 0:
-                return self.df[lista_categ].describe()
-            
-            elif len(lista_categ) == 0:
-                return self.df[lista_num].describe()
-            
-            else:       
-                return self.df[lista_num].describe(), self.df[lista_categ].describe()
-        
-        return self.df[colunas].describe()
+        info["Unicos Soma"] = info["Colunas"].map(self.df.nunique())
+        info["Unicos Soma"] = info["Colunas"].map(self.df.nunique())
+        info["Unicos %"] = round(100 * info["Unicos Soma"] / self.df.shape[0], 2)
+        return(info)
+    
+    
+    # Linhas duplicadas
+    def duplicadas(self):
+        duplicadas_totais = self.df[self.df.duplicated(keep=False)].sort_values([self.df.columns[0]])
+        return duplicadas_totais
     
     
     # Analisando as colunas numéricas
     def descricao_numerica(self):
         return self.df[self.lista_numericas].describe()
     
-    
-    # Analisando as colunas categóricas
-    def descricao_categorica(self):
-        return self.df[self.lista_categoricas].describe()
-    
-    
-    # Contagem de valores das colunas categóricos
-    def contagem_categorica(self) -> list:
-        lista_dfs = []
-        for i in self.lista_categoricas:
-            df_aux = pd.DataFrame(self.df[i].value_counts().reset_index())
-            df_aux.columns = [i, "Soma"]
-            df_aux["%"] = round(100 * df_aux["Soma"] / self.df.shape[0], 2)
-        
-        lista_dfs.append(df_aux)
-        return lista_dfs
-    
-    
+
     # Contagem de valores das colunas numéricas
     def contagem_numerica(self):
         lista_dfs = []
@@ -109,59 +53,24 @@ class DataQuality:
         return lista_dfs
     
     
-    # Gráfico de distribuição das variáveis categóricas
-    def grafico_dist_categ(self,):
-        for coluna in self.lista_categoricas:
-            num_valores = self.__valores_categoricos
-            tamanho = self.df[coluna].nunique()
-            
-            if tamanho < num_valores:
-                num_valores = tamanho
-
-            elif tamanho > num_valores:
-                print(f"A quantidade de valores únicos da coluna: {coluna} é muito grande.")
-                print(f"Serão exibidos os {num_valores} valores mais relevantes.")
-            
-            fig_dinamic =  num_valores/5
-            
-            if fig_dinamic < 5:
-                fig_dinamic = 5
-            
-            plt.figure(figsize=(10,fig_dinamic))
-            sns.set_style(plot_style)
-            sns.countplot(y=self.df[coluna], 
-                          legend=False, 
-                          color = color_palette[0], 
-                          order=(pd.Series(self.df[coluna].value_counts(ascending=False).reset_index()[0:num_valores][coluna])))
-            plt.title(f"Distribuição de {coluna}")
-            plt.tight_layout()
-            plt.show()
-    
-    
     # Gráfico de distribuição das variáveis numéricas
-    def grafico_dist_num(self):
-        for coluna in self.lista_numericas:
-            plt.figure(figsize=(5, 5))
-            sns.set_style(plot_style)
-            sns.histplot(self.df[coluna], kde=True, color = color_palette[0])
-            plt.title(f"Distribuição de {coluna}")
-            plt.tight_layout()
-            plt.show()
+    def grafico_dist_num(self, coluna):
+        plt.figure(figsize=(5, 5))
+        sns.set_style(plot_style)
+        sns.histplot(self.df[coluna], kde=True, color = color_palette[0])
+        plt.title(f"Distribuição de '{coluna}'")
+        plt.tight_layout()
+        plt.show()
     
     
     # Diagrama de caixa das variáveis numéricas
-    def grafico_diagrama_caixa(self):
-        count_cores = 0
-        for coluna in self.lista_numericas:
-            if count_cores > len(color_palette):
-                count_cores = 0
-            plt.figure(figsize=(2.5,5))
-            sns.set_style(plot_style)
-            sns.boxplot(self.df[coluna], color = color_palette[count_cores])
-            plt.title(f"Boxplot de {coluna}")
-            plt.tight_layout()
-            plt.show()
-            count_cores += 1
+    def grafico_diagrama_caixa(self, coluna):
+        plt.figure(figsize=(2.5,5))
+        sns.set_style(plot_style)
+        sns.boxplot(self.df[coluna], color = color_palette[0])
+        plt.title(f"Boxplot de '{coluna}'")
+        plt.tight_layout()
+        plt.show()
     
     
     # Matriz de correlação das variáveis numéricas
@@ -190,6 +99,7 @@ class DataQuality:
         for i in heatm.axes.flat:
             i.set_xticks(i.get_xticks())
             i.set_xticklabels(i.get_xticklabels(), rotation=90)
+        plt.show()
     
     
     # Relação de pares das variáveis numéricas
@@ -201,73 +111,147 @@ class DataQuality:
         plt.show()
     
     
+    # Analisando as colunas categóricas
+    def descricao_categorica(self):
+        return self.df[self.lista_categoricas].describe()
+    
+    
+    # Contagem de valores das colunas categóricos
+    def contagem_categorica(self) -> list:
+        lista_dfs = []
+        for i in self.lista_categoricas:
+            df_aux = pd.DataFrame(self.df[i].value_counts().reset_index())
+            df_aux.columns = [i, "Soma"]
+            df_aux["%"] = round(100 * df_aux["Soma"] / self.df.shape[0], 2)
+            lista_dfs.append(df_aux)
+        return lista_dfs
+    
+    
+    # Gráfico de distribuição das variáveis categóricas
+    def grafico_dist_categ(self, coluna):
+        num_valores = self.__valores_categoricos
+        tamanho = self.df[coluna].nunique()
+        
+        if tamanho < num_valores:
+            num_valores = tamanho
+        
+        elif tamanho > num_valores:
+            print(f"A quantidade de valores únicos da coluna '{coluna}' é muito grande.")
+            print(f"Serão exibidos os {num_valores} valores mais relevantes.")
+        
+        fig_dinamic =  num_valores/5
+        
+        if fig_dinamic < 5:
+            fig_dinamic = 5
+        
+        plt.figure(figsize=(10,fig_dinamic))
+        sns.set_style(plot_style)
+        sns.countplot(y=self.df[coluna], 
+                        legend=False, 
+                        color = color_palette[0], 
+                        order=(pd.Series(self.df[coluna].value_counts(ascending=False).reset_index()[0:num_valores][coluna])))
+        plt.title(f"Distribuição de {coluna}")
+        plt.tight_layout()
+        plt.show()
+    
+    
     # Relatório do Dataset
     def relatorio(self) -> None:
         
         print(f"ANÁLISE DO CONJUNTO DE DADOS DO DATAFRAME {self.arquivo}.\n")
-        print("Informções Gerais:")
-        self.informacoes()
+        print("INFORMAÇÕES GERAIS:\n")
+        
+        print(f"Tamanho do Dataset:\n{self.df.shape[0]} linhas;\n{self.df.shape[1]} colunas;\n")
+        display(self.informacoes())
         print("\n")
         
-        print(f"REALIZANDO A CONTAGEM DOS VALORES NULOS.\n")
-        display(self.contagem_nulos())
-        print ("\n")       
+        print(f"Exibindo as {self.__valores_categoricos} primeiras linhas:\n")
+        self.df.head(self.__valores_categoricos)
+        print("\n")
         
-        print(f"REALIZANDO A CONTAGEM DOS VALORES ÚNICOS.\n")
-        display(self.contagem_unicos())
-        print("\n") 
+        print(f"Exibindo as {self.__valores_categoricos} últimas linhas:\n")
+        self.df.tail(self.__valores_categoricos)
+        print("\n")
+        
+        print("Colunas duplicadas no Dataset:\n")
+        df_duplicada = self.duplicadas()
+        if df_duplicada.shape[0] == 0:
+            print(f"O Dataset não possui linhas duplicadas.\n")
+            print("\n")
+        else:
+            print(f"O Dataset possui {df_duplicada.shape[0]} linhas duplicadas.")
+            print(f"As linhas duplicadas correspondem a {round(100 * df_duplicada.shape[0] / self.df.shape[0], 2)}% do Dataset.\n")
+            display(df_duplicada.head(self.__head_tail))
+            print("\n")
+            display(df_duplicada.tail(self.__head_tail))
+            print("\n")
         
         if len(self.lista_numericas) >= 1:
-            print(f"INFORMAÇÕES DAS COLUNAS NUMÉRICAS.")
+            print(f"INFORMAÇÕES DAS COLUNAS NUMÉRICAS.\n")
+
+            print(f"O Dataset possui as seguintes colunas numéricas: {self.lista_numericas}.\n")
+            print("\n")
+
+            print(f"Estatística descritiva das colunas numéricas:\n")
             display(self.descricao_numerica())
             print("\n")
-        
-            print("CONTAGEM DOS VALORES NUMÉRICOS:")
+            
+            print("DISTRIBUIÇÃO DOS VALORES NUMÉRICOS:\n")
+
             lista_dfs_num = self.contagem_numerica()
             for df in lista_dfs_num:
+                print(f"Análise da coluna '{df.columns[0]}'\n")
                 display(df)
-            print("\n")
-        
-            print("DISTRIBUIÇÃO DOS VALORES NUMÉRICOS:")
-            self.grafico_dist_num()
-            print("\n") 
+                print("\n")
+                if df["Soma"].nunique() == 1:
+                    print(f"A coluna '{df.columns[0]}' possui apenas valores únicos.\n")
+                    print("\n")
+                else:
+                    self.grafico_dist_num(df.columns[0])
+                    print("\n")
+                    self.grafico_diagrama_caixa(df.columns[0])
+                    print("\n")
+            
+            print("RELAÇÃO DE PARES DOS VALORES NUMÉRICOS:\n")
 
-            print("DIAGRAMA DE CAIXA DOS VALORES NUMÉRICOS:")
-            self.grafico_diagrama_caixa()
-            print("\n")
-
-            print("RELAÇÃO DE PARES DOS VALORES NUMÉRICOS")
             self.grafico_relacao_pares()
             print("\n")
+            
+            print("MATRIZ DE CORRELAÇÃO:\n")
 
-
-            print("MATRIZ DE CORRELAÇÃO:")
             if len(self.lista_numericas) >= 2:
                 self.matriz_correlacao()
             else:
-                print("Não foi possível fazer uma matriz de correlação.")
+                print("Não foi possível fazer uma matriz de correlação.\n")
             print("\n")
 
         else:
-            print("DATASET SEM COLUNAS NUMÉRICAS.")
+            print("DATASET SEM COLUNAS NUMÉRICAS.\n")
 
         if len(self.lista_categoricas) >= 1:
-            print(f"INFORMAÇÕES DAS COLUNAS CATEGÓRICAS.")
+            print(f"INFORMAÇÕES DAS COLUNAS CATEGÓRICAS.\n")
+
+            print(f"O Dataset possui as seguintes colunas categóricas: {self.lista_categoricas}.\n")
+            print("\n")
+            
+            print(f"Maiores frequências das colunas categóricas:\n")
             display(self.descricao_categorica())
             print ("\n")
         
-            print("CONTAGEM DOS VALORES CATEGÓRICOS:")
+            print("DISTRIBUIÇÃO DOS VALORES CATEGÓRICOS:\n")
+
             lista_dfs_categ = self.contagem_categorica()
             for df in lista_dfs_categ:
+                print(f"Análise da coluna '{df.columns[0]}'\n")
                 display(df)
+                if df["Soma"].nunique() == 1:
+                    print(f"A coluna '{df.columns[0]}' possui apenas valores únicos.\n")
+                else:
+                    self.grafico_dist_categ(df.columns[0])
             print("\n")
         
-            print("DISTRIBUIÇÃO DOS VALORES CATEGÓRICOS:")
-            self.grafico_dist_categ()
-            print("\n") 
-        
         else:
-            print("DATASET SEM COLUNAS CATEGÓRICAS.")
+            print("DATASET SEM COLUNAS CATEGÓRICAS.\n")
 
     @property
     def valores_categoricos(self):
@@ -276,3 +260,11 @@ class DataQuality:
     @valores_categoricos.setter
     def valores_categoricos(self, novo_valor):
         self.__valores_categoricos = novo_valor
+    
+    @property
+    def valores_head_tail(self):
+        return self.__valores_head_tail
+    
+    @valores_head_tail.setter
+    def valores_head_tail(self, novo_valor):
+        self.__valores_head_tail = novo_valor
