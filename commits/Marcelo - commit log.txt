@@ -1,0 +1,253 @@
+commit fe563e8e82712f0c55d3938816bac949ddcccaa0
+Merge: 01025f5 56eb269
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Mon Sep 30 09:15:36 2024 -0300
+
+    Merge pull request #9 from NicolasSP90/main
+    
+    últimas alterações do projeto
+
+commit 56eb2692803b359f53a32ec27518d8397db79d41
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Sun Sep 29 23:03:47 2024 -0300
+
+    Ajuste da imagem do fluxo
+
+commit d4873c42042b2b166b0e90d92771c582c802f619
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Sat Sep 28 20:25:23 2024 -0300
+
+    Finalização Data Quality e atualizados arquivos readme e de fluxo.
+
+commit e05b0657fb4c57134c8376842c2b35469e7f8c10
+Merge: 5f82ce8 01025f5
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Sat Sep 28 19:47:44 2024 -0300
+
+    Merge branch 'main' of github.com:NicolasSP90/Projeto_Data_Quality
+
+commit 5f82ce8c206b80c1899e2667649a101b03baa028
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Sat Sep 28 19:46:37 2024 -0300
+
+    Adição de verificação de itens duplicados, alteração da visualização do relatório e remoção de gráficos de valores unicos
+
+commit 01025f5dbc28c7365596ee94236f4e8284bb6085
+Merge: 4190bce 25811f2
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Fri Sep 27 09:12:02 2024 -0300
+
+    Merge pull request #8 from NicolasSP90/main
+    
+    Ajustes dos gráficos e relatórios, teste com dataset da netflix e README
+
+commit 25811f2ff0bdd921a54ac5236e510473c7311177
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Thu Sep 26 22:49:43 2024 -0300
+
+    Ajustes dos gráficos e relatórios, teste com dataset da netflix e README
+
+commit 4190bced9005868a51a97489448de5ab365804b8
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Thu Sep 26 15:35:08 2024 -0300
+
+    Update README.md
+
+commit ef8116d2957be84400bedb7798f67e9c2fd39de4
+Merge: e5b0309 a54994d
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Thu Sep 26 14:57:20 2024 -0300
+
+    Merge pull request #7 from NicolasSP90/main
+    
+    Integração dos cógidos e ajuste do fluxo
+
+commit a54994d32e42b56e792e633d08594e6d9564acea
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Thu Sep 26 13:34:49 2024 -0300
+
+    Ajustes e integração dos códigos
+
+commit 06be9994076f1a0113a6a905dd602eec5bae6237
+Merge: 2731d99 e5b0309
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Thu Sep 26 13:32:12 2024 -0300
+
+    Ajustes e integração dos códigos
+
+commit 2731d998426ebd784f6b4ded7cf48c972c0ca73a
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Thu Sep 26 13:06:12 2024 -0300
+
+    Finalização  das funçoes de gráficos
+
+commit e5b0309e74fb5c23b4b2116c76cb71de964c209a
+Author: MarceloHenriques <marcelohenriques2003@gmail.com>
+Date:   Thu Sep 26 12:15:41 2024 -0300
+
+    1º Commit 26/09/2024
+
+commit 69587b03f03c7543b074376581da026cfb649d70
+Merge: 8a4a071 e4bec77
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Thu Sep 26 10:05:21 2024 -0300
+
+    Merge pull request #6 from NicolasSP90/main
+    
+    Adicionados Gráficos
+
+commit e4bec7742e60a7dba77e0b752df6d0a83e950685
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Thu Sep 26 10:03:09 2024 -0300
+
+    Adicionados gráficos
+
+commit 9cbbe46426f716f5821a85c38b7f485ff25eaa10
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Thu Sep 26 10:02:39 2024 -0300
+
+    Adicionados gráficos
+
+commit 8a4a071d82a098d66aedd0420a1bfb26ddf0c18d
+Merge: 9c9d406 3c6a826
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Wed Sep 25 16:06:05 2024 -0300
+
+    Merge pull request #5 from NicolasSP90/main
+    
+    Merge das alterações
+
+commit 3c6a826aa23d1e720da7aa12675706a4517d2608
+Merge: ff6d559 9c9d406
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Wed Sep 25 16:03:46 2024 -0300
+
+    merge das mudanças - 2024.09.25
+
+commit ff6d5599387bee196eeb392821cfd1f797688146
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Wed Sep 25 15:59:00 2024 -0300
+
+    Adição de metodos de visualização dos dados
+
+commit 9c9d406f99ac5501f5dcee54e6fc146d04c50ab2
+Author: MarceloHenriques <marcelohenriques2003@gmail.com>
+Date:   Wed Sep 25 15:51:25 2024 -0300
+
+    Commit Iteração
+
+commit b45b8c85e44a9130802de142f0da43e13d8fbaa5
+Merge: b0bb022 276ad5b
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Wed Sep 25 11:33:14 2024 -0300
+
+    Merge pull request #4 from NicolasSP90/main
+    
+    Versao 1.0 do fluxograma
+
+commit 276ad5ba5dad6c7d3acd984dfdab835f6111503e
+Merge: f70a8b2 b0bb022
+Author: Nícolas Sartor Parisotto <85455341+NicolasSP90@users.noreply.github.com>
+Date:   Wed Sep 25 11:29:38 2024 -0300
+
+    Merge branch 'MarceloHenriques:main' into main
+
+commit f70a8b2b9a4ca51212822ebeeeddea6d5e664d05
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Wed Sep 25 11:28:17 2024 -0300
+
+    Fluxo versão 1.0
+
+commit b0bb0225dc48ff788595f76bedbb73638fb8e204
+Merge: 30c3d20 e82c967
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Wed Sep 25 10:33:42 2024 -0300
+
+    Merge pull request #3 from NicolasSP90/main
+    
+    Fluxograma - Correção
+
+commit e82c9670caee119d1ff80ae19dd5b04f38cba478
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Tue Sep 24 16:27:58 2024 -0300
+
+    Fluxograma - Correção
+
+commit 30c3d2057dad2a3c2558d79bd9aaa8cd81d0f6f1
+Merge: 415f03e 7b0f17a
+Author: MarceloHenriques <marcelohenriques2003@gmail.com>
+Date:   Tue Sep 24 16:24:07 2024 -0300
+
+    3 Commit
+
+commit 415f03e728036bfc002ee36cfbea2a660f863da4
+Author: MarceloHenriques <marcelohenriques2003@gmail.com>
+Date:   Tue Sep 24 16:14:33 2024 -0300
+
+    Ajustes
+
+commit 7b0f17a507976a3d16437aca6c52e42489e113df
+Merge: d21c865 de9db72
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Tue Sep 24 16:12:49 2024 -0300
+
+    Merge pull request #2 from NicolasSP90/main
+    
+    Ajuste fluxo
+
+commit de9db72172281a86360589df7126f5cd88692bcb
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Tue Sep 24 16:10:49 2024 -0300
+
+    Ajuste fluxo
+
+commit d21c8657de19f65b121cb36f5aabd6ecc666bde1
+Merge: 48170a2 c47e108
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Tue Sep 24 15:18:08 2024 -0300
+
+    Merge pull request #1 from NicolasSP90/main
+    
+    Ambiente de Desenvolvimento
+
+commit c47e10816a1c555ac12d276f4ecebc3fc63aba12
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Tue Sep 24 12:45:45 2024 -0300
+
+    Ajuste projeto e README - 1a alteração
+
+commit 4e566ab5a6e608ae75a913894766a31d6823edc7
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Tue Sep 24 12:44:01 2024 -0300
+
+    Ajuste projeto e README - 1a alteração
+
+commit 06ef3b98dfc4ee08bfd75845aeee8013fdfeab38
+Author: NicolasSP90 <nicolassp90@hotmail.com>
+Date:   Tue Sep 24 11:47:43 2024 -0300
+
+    Ajuste projeto e README - 1a alteração
+
+commit 48170a2a260e5ae12dabed1a821df138a827b83c
+Author: MarceloHenriques <marcelohenriques2003@gmail.com>
+Date:   Tue Sep 24 11:11:12 2024 -0300
+
+    2º Commit
+
+commit 08c34e8ee7c77a63b3a294a2912d0c2252598e48
+Author: MarceloHenriques <marcelohenriques2003@gmail.com>
+Date:   Tue Sep 24 11:09:35 2024 -0300
+
+    2º Commit
+
+commit a1995d5c1bf6b39699a44cc3057b87e85f043af3
+Author: MarceloHenriques <marcelohenriques2003@gmail.com>
+Date:   Tue Sep 24 10:27:03 2024 -0300
+
+    1º Commit
+
+commit e3bea876f18aedfdfc3fd1f0ccdaf71c8ca6fe44
+Author: MarceloHenriques <110921772+MarceloHenriques@users.noreply.github.com>
+Date:   Tue Sep 24 09:57:48 2024 -0300
+
+    Initial commit
